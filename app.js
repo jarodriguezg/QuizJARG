@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var partials = require('express-partials'); // incluir MW
+
 var routes = require('./routes/index');
 // var users = require('./routes/users'); Borrar ruta /users
 
@@ -14,6 +16,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(partials()); // instalar MW
 // Favicon in /public
 // icono no animado, cuando navegador != firefox
 app.use(favicon(__dirname + '/public/static/favicon.ico'));
