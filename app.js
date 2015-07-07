@@ -9,6 +9,7 @@ var partials = require('express-partials'); // incluir MW
 
 var routes = require('./routes/index');
 // var users = require('./routes/users'); Borrar ruta /users
+// var creditos = require('./routes/author'); Crear creditos
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 // app.use('/users', users); Borrar ruta /users
+// app.use('/author', creditos); Nueva ruta creditos
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
