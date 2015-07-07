@@ -20,7 +20,7 @@ app.use(partials()); // instalar MW
 // Favicon in /public
 // icono no animado, cuando navegador != firefox
 app.use(favicon(__dirname + '/public/static/favicon.ico'));
-// icono animado para solo compatible con firefox
+// icono animado solo compatible con firefox
 app.use(favicon(__dirname + '/public/animated/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
