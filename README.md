@@ -1,4 +1,4 @@
 # QuizJARG
 Proyecto QUIZ
 
-Ejemplo proyecto QUIZ, realizado desde 0.
+Ejemplo proyecto QUIZ realizado desde 0.
