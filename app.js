@@ -4,8 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var partials = require('express-partials'); // incluir MW
+var methodOverride = require('method-override'); // incluir MW
 
 var routes = require('./routes/index');
 // var users = require('./routes/users'); Borrar ruta /users
@@ -27,6 +27,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());  // Eliminado { extended: false }
 app.use(cookieParser());
+app.use(methodOverride('_method')); // Usamos MW
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
