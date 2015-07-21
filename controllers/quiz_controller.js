@@ -1,6 +1,6 @@
 var models = require('../models/models.js');
 
-//Autoload - factoriza codigo si ruta tiene :quizId
+// Autoload - factoriza codigo si ruta tiene :quizId
 exports.load = function(req, res, next, quizId) {
     models.Quiz.find(quizId).then(function(quiz) {
 	if (quiz) {
@@ -10,7 +10,7 @@ exports.load = function(req, res, next, quizId) {
     }).catch(function(error) { next(error); });
 };
 
-//GET /quizes
+// GET /quizes
 exports.index = function(req, res) {
     models.Quiz.findAll().then(function(quizes) {
 	res.render('quizes/index', { quizes: quizes });
@@ -20,6 +20,25 @@ exports.index = function(req, res) {
 // GET /quizes/:id
 exports.show = function(req, res) {
     res.render('quizes/show', { quiz: req.quiz });
+};
+
+// GET /quizes/new
+exports.new = function(req, res) {
+    var quiz = models.Quiz.build( // Creando objeto Quiz
+	{ pregunta: "Pregunta", respuesta: "Respuesta" }
+    );
+
+    res.render('quizes/new', { quiz: quiz });
+};
+
+// POST /quizes/create
+exports.create = function(req, res) {
+    var quiz = models.Quiz.build( req.body.quiz );
+
+    //Guardar campos en BD
+    quiz.save({ fields: ["pregunta", "respuesta"] }).then(function(){
+	res.redirect('/quizes'); // Redireccion HTTP (URL relativo)
+    })
 };
 
 // GET /quizes/:id/answer
