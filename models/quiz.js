@@ -8,8 +8,11 @@ module.exports = function(sequelize, DataTypes) {
 	    validate: { notEmpty: { msg: "-> Falta Pregunta" }}
 	  },
 	  respuesta: {
-	      type: DataTypes.STRING,
-	      validate: { notEmpty: { msg: "-> Falta Respuesta" }}
+	    type: DataTypes.STRING,
+	    validate: { notEmpty: { msg: "-> Falta Respuesta" }}
+	  },
+	  tema: {
+	    type: DataTypes.STRING
 	  }
 	}
     );
