@@ -10,9 +10,20 @@ exports.load = function(req, res, next, quizId) {
     }).catch(function(error) { next(error); });
 };
 
-// GET /quizes
+// GET /quizes (index)
 exports.index = function(req, res) {
-    models.Quiz.findAll().then(function(quizes) {
+    if (req.query.search) {
+	var search = (req.query.search).replace(/ /g, '%');
+	var buscarpregunta = 
+	    models.Quiz.findAll(
+		{ where: {
+		    pregunta: { $like: '%' + search + '%' }
+		  },
+		  order: 'pregunta ASC'
+		});
+    } else { var buscarpregunta = models.Quiz.findAll(); }
+ 
+    buscarpregunta.then(function(quizes) {
 	res.render('quizes/index', { quizes: quizes, errors: [] });
     }).catch(function(error) { next(error); });
 }
