@@ -21,7 +21,15 @@ exports.index = function(req, res) {
 		  },
 		  order: 'pregunta ASC'
 		});
-    } else { var buscarpregunta = models.Quiz.findAll(); }
+    } else if (req.query.tematica) {
+	var buscarpregunta = 
+	    models.Quiz.findAll(
+		{ where: {
+		    tema: { $like: req.query.tematica }
+		  },
+		  order: 'pregunta ASC'
+		});
+    } else { var buscarpregunta = models.Quiz.findAll(); }	    
  
     buscarpregunta.then(function(quizes) {
 	res.render('quizes/index', { quizes: quizes, errors: [] });
@@ -36,7 +44,7 @@ exports.show = function(req, res) {
 // GET /quizes/new
 exports.new = function(req, res) {
     var quiz = models.Quiz.build( // Creando objeto Quiz
-	{ pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema" }
+	{ pregunta: "Pregunta", respuesta: "Respuesta", tema: "Otro" }
     );
 
     res.render('quizes/new', { quiz: quiz, errors: [] });

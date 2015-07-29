@@ -4,6 +4,31 @@
     <input type="submit" value="Buscar">
 </form>
 
+<form id="buscador" method="get" action="/quizes">
+  <b>Filtrar preguntas por tema:</b>
+  <select name="tematica" id="tematica">
+    <option value="" disabled selected>Todos los temas</option>
+    <option value="Otro">Otro</option>
+    <option value="Humanidades">Humanidades</option>
+    <option value="Ocio">Ocio</option>
+    <option value="Ciencia">Ciencia</option>
+    <option value="Tecnologia">Tecnología</option>
+  </select> 
+  <input type="submit" value="Buscar">
+</form>
+
+<%if(quizes[0]) { 
+      var todos=0; 
+      for(var i=0; i < (quizes.length-1); i++) {
+    	  if(quizes[i].tema != quizes[i+1].tema){ todos=1; break; }
+      }	
+      %> <p id="buscador"><b>Tematica preguntas: </b><%
+      if(todos) { %> <em>Todos los temas</em> <% }
+      else { %> <em><%= quizes[0].tema %></em> <% }
+  }   
+  else{ %><p><em>No hay preguntas sobre el tema seleccionado</em><%}%>
+   </p> 
+
 <table>
 <% var i; for (i=0; i<quizes.length; i++) { %>
    <tr>
