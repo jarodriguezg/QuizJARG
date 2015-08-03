@@ -1,8 +1,8 @@
-// MW de autorizacion de accesos HTTP restringidos
+/* MW de autorizacion de accesos HTTP restringidos
 exports.loginRequired = function(req, res, next) {
     if(req.session.user) { next(); }
     else { res.redirect('/login'); }
-};
+}; */
 
 // GET /login -- Formulario de login
 exports.new = function(req, res) {
@@ -15,7 +15,7 @@ exports.new = function(req, res) {
 // POST /login -- Crear sesion
 exports.create = function(req, res) {
     
-    var login = req.body.login;
+    var login    = req.body.login;
     var password = req.body.password;
     
     var userController = require('./user_controller');
