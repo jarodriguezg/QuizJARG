@@ -45,4 +45,7 @@ router.get('/author', function(req, res) {
     res.render('author', { title: 'Creditos', errors: [] });
 });
 
+/* GET statistics 
+router.get('/quizes/statistics', statisticsController.index); */
+
 module.exports = router;

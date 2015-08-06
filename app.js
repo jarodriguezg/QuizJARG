@@ -26,9 +26,12 @@ app.use(favicon(__dirname + '/public/static/favicon.ico'));
 app.use(favicon(__dirname + '/public/animated/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());  // { extended: false }
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser('Quiz2015'));
-app.use(session());
+app.use(session({
+          resave: true,
+          saveUninitialized: false,
+          secret: 'Quiz2015'}));
 app.use(methodOverride('_method')); // Usamos MW
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,6 +45,22 @@ app.use(function(req, res, next) {
     res.locals.session = req.session;
     next();
 });
+
+// Auto-logout
+app.use(function(req, res, next) { // 2minutos = 120000ms
+    if (req.session.user){ // Existe sesion de usuario
+	if (req.session.tiempo === undefined) {
+	    req.session.tiempo = Date.now();
+	}
+	if ((Date.now() - req.session.tiempo) > 120000) {
+	    delete req.session.user;
+	    delete req.session.tiempo;
+	} else {
+	    req.session.tiempo = Date.now();
+	}
+    }
+    next();
+}); 
 
 app.use('/', routes);
 // app.use('/users', users); Borrar ruta /users
